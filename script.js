@@ -16,14 +16,33 @@ function handleKeyPress(letter) {
 
 function handleEnterKey() {
     if (currentInputIndex === inputs.length) {
-        // Validate the current row
-        console.log('Row validated');
-        currentRow++;
-        if (currentRow < rows.length) {
-            currentInputIndex = 0;
-            inputs = rows[currentRow].querySelectorAll('input');
+        const inputWord = Array.from(inputs).map(input => input.value).join('').toLowerCase();
+        console.log(inputWord);
+        console.log('TARGET WORD:', targetWord);
+
+        if (inputWord === targetWord) {
+            console.log('Success! You guessed the word.');
+            inputs.forEach(input => input.style.backgroundColor = 'green');
         } else {
-            console.log('All rows completed');
+            for (let i = 0; i < inputWord.length; i++) {
+                if (inputWord[i] === targetWord[i]) {
+                    inputs[i].style.backgroundColor = 'green';
+                    console.log(`Letter ${inputWord[i]} is correct and in the correct position.`);
+                } else if (targetWord.includes(inputWord[i])) {
+                    inputs[i].style.backgroundColor = 'yellow';
+                    console.log(`Letter ${inputWord[i]} is in the word but in the wrong position.`);
+                } else {
+                    inputs[i].style.backgroundColor = 'gray';
+                    console.log(`Letter ${inputWord[i]} is not in the word.`);
+                }
+            }
+            currentRow++;
+            if (currentRow < rows.length) {
+                currentInputIndex = 0;
+                inputs = rows[currentRow].querySelectorAll('input');
+            } else {
+                console.log('All rows completed');
+            }
         }
     }
 }
