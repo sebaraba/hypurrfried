@@ -4,8 +4,8 @@ let attempts = 0;
 const maxAttempts = 6;
 let currentRow = 0;
 let currentInputIndex = 0;
-const rows = document.querySelectorAll('.game-container div');
-const inputs = rows[currentRow].querySelectorAll('input');
+let rows = document.querySelectorAll('.game-container div');
+let inputs = rows[currentRow].querySelectorAll('input');
 
 function handleKeyPress(letter) {
     if (currentInputIndex < inputs.length) {
@@ -20,8 +20,8 @@ function handleEnterKey() {
         console.log('Row validated');
         currentRow++;
         if (currentRow < rows.length) {
-            currentInputIndex++;
-            // inputs = rows[currentRow].querySelectorAll('input');
+            currentInputIndex = 0;
+            inputs = rows[currentRow].querySelectorAll('input');
         } else {
             console.log('All rows completed');
         }
